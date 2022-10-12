@@ -2,6 +2,7 @@ import env from "dotenv";
 env.config();
 
 import "express-async-errors";
+import cors from "cors";
 import express from "express";
 import cookieParser from "cookie-parser";
 
@@ -15,6 +16,11 @@ import postRoutes from "./modules/post/post.routes";
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "*"
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
