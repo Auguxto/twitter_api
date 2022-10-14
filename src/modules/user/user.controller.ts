@@ -21,4 +21,11 @@ export default class UserController {
 
     return response.status(201).end();
   }
+
+  async read(request: Request, response: Response) {
+    const service = new UserService();
+    const user = await service.read(request.user);
+
+    return response.status(200).json(user).end();
+  }
 }

@@ -1,6 +1,8 @@
 import prisma from "../../lib/prisma";
 import * as crypt from "../../lib/crypt";
 
+import { User } from "@prisma/client";
+
 import CreateUserDto from "./dto/create-user.dto";
 
 import AppError from "../../error/AppError";
@@ -37,5 +39,19 @@ export default class UserService {
     });
 
     return;
+  }
+
+  async read(id: string): Promise<User> {
+    const user = await prisma.user.findUnique({
+      where: {
+        id
+      }
+    });
+
+    if (!user) throw new AppError("Unauthorized", 401);
+
+    delete user.password;
+
+    return user;
   }
 }
