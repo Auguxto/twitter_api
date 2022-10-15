@@ -17,7 +17,18 @@ export default class PostService {
   }
 
   async list(): Promise<Post[]> {
-    const posts = await prisma.post.findMany();
+    const posts = await prisma.post.findMany({
+      include: {
+        user: {
+          select: {
+            id: true,
+            username: true,
+            name: true,
+            avatar: true
+          }
+        }
+      }
+    });
 
     return posts;
   }
