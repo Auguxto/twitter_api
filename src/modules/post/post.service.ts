@@ -15,4 +15,10 @@ export default class PostService {
 
     return post;
   }
+
+  async list(): Promise<Post[]> {
+    const posts = await prisma.post.findMany();
+
+    return posts;
+  }
 }
