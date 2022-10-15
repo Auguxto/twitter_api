@@ -6,5 +6,6 @@ const postRoutes = Router();
 
 postRoutes.post("/", new PostController().create);
 postRoutes.get("/", new PostController().list);
+postRoutes.delete("/:id", new PostController().delete);
 
 export default postRoutes;

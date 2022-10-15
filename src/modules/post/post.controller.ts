@@ -22,6 +22,15 @@ export default class PostController {
     return response.status(201).json(post).end();
   }
 
+  async delete(request: Request, response: Response) {
+    const { id } = request.params;
+
+    const service = new PostService();
+    const posts = await service.delete(id, request.user);
+
+    return response.status(200).end();
+  }
+
   async list(request: Request, response: Response) {
     const service = new PostService();
     const posts = await service.list();
