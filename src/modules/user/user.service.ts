@@ -5,8 +5,9 @@ import { User } from "@prisma/client";
 
 import CreateUserDto from "./dto/create-user.dto";
 
-import AppError from "../../error/AppError";
 import { validateUsername } from "../../lib/username";
+
+import AppError from "../../error/AppError";
 
 export default class UserService {
   async create(createUserDto: CreateUserDto): Promise<void> {
@@ -45,6 +46,10 @@ export default class UserService {
     const user = await prisma.user.findUnique({
       where: {
         id
+      },
+      include: {
+        followedBy: true,
+        following: true
       }
     });
 

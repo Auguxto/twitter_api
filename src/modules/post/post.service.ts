@@ -54,7 +54,9 @@ export default class PostService {
             id: true,
             username: true,
             name: true,
-            avatar: true
+            avatar: true,
+            followedBy: true,
+            following: true
           }
         }
       }
