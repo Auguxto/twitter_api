@@ -50,9 +50,22 @@ export default class FollowService {
         following: {
           id: target_id
         }
+      },
+      include: {
+        follower: true,
+        following: true
       }
     });
 
     if (!follow) throw new AppError("Bad request", 400);
+
+    await prisma.follows.delete({
+      where: {
+        follower_id_following_id: {
+          follower_id: user_id,
+          following_id: target_id
+        }
+      }
+    });
   }
 }
