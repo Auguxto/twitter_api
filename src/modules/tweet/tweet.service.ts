@@ -2,15 +2,15 @@ import { Post } from "@prisma/client";
 
 import prisma from "../../lib/prisma";
 
-import CreatePostDto from "./dto/create-post.dto";
+import CreateTweetDto from "./dto/create-tweet.dto";
 
 import AppError from "../../error/AppError";
 
-export default class PostService {
-  async create(createPostDto: CreatePostDto, user_id: string): Promise<Post> {
-    const post = await prisma.post.create({
+export default class TweetService {
+  async create(createTweetDto: CreateTweetDto, user_id: string): Promise<Post> {
+    const tweet = await prisma.post.create({
       data: {
-        ...createPostDto,
+        ...createTweetDto,
         user_id
       },
       include: {
@@ -25,19 +25,19 @@ export default class PostService {
       }
     });
 
-    return post;
+    return tweet;
   }
 
   async delete(id: string, user: string): Promise<void> {
-    const post = await prisma.post.findFirst({
+    const tweet = await prisma.post.findFirst({
       where: {
         id
       }
     });
 
-    if (!post) throw new AppError("Post not found", 404);
+    if (!tweet) throw new AppError("Tweet not found", 404);
 
-    if (post.user_id !== user) throw new AppError("Unauthorized", 401);
+    if (tweet.user_id !== user) throw new AppError("Unauthorized", 401);
 
     await prisma.post.delete({
       where: {
@@ -47,7 +47,7 @@ export default class PostService {
   }
 
   async list(): Promise<Post[]> {
-    const posts = await prisma.post.findMany({
+    const tweets = await prisma.post.findMany({
       include: {
         user: {
           select: {
@@ -62,6 +62,6 @@ export default class PostService {
       }
     });
 
-    return posts;
+    return tweets;
   }
 }

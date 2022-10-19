@@ -12,7 +12,7 @@ import auth from "./middlewares/auth";
 import userRoutes from "./modules/user/user.routes";
 import authRoutes from "./modules/auth/auth.routes";
 import followRoutes from "./modules/follow/follow.routes";
-import postRoutes from "./modules/post/post.routes";
+import tweetRoutes from "./modules/tweet/tweet.routes";
 
 const app = express();
 
@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use("/user", userRoutes);
 app.use("/user/auth", authRoutes);
 app.use("/user/follow", auth, followRoutes);
-app.use("/post", auth, postRoutes);
+app.use("/tweet", auth, tweetRoutes);
 
 app.use(errorHandler);
 

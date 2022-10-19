@@ -1,7 +1,7 @@
 import { IsString } from "class-validator";
 
-export default class CreatePostDto {
-  constructor(partial: Partial<CreatePostDto>) {
+export default class CreateTweetDto {
+  constructor(partial: Partial<CreateTweetDto>) {
     Object.assign(this, partial);
   }
 
